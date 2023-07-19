@@ -1,7 +1,10 @@
 def main():
-    # print(calculate_the_quotient('555 / 2'))  # task 1
-    # print(password_verification('a14', 'qw2', 'ad2', '16'))    # task 2
-    print(check_result_of_olympiad('Ольга Олимпиадникова'))
+    print(calculate_the_quotient('555 / 2'))  # task 1
+    print(password_verification('a14', 'qw2', 'ad2', '16'))  # task 2
+    print(check_result_of_olympiad('Ольга Олимпиадникова'))  # task 3
+    print(check_result_of_olympiad('Олеся Олимпиадникова'))  # task 3
+    extremely_impolite_function()  # task 4
+    anecdote()  # task 5
 
 
 def calculate_the_quotient(string):
@@ -58,20 +61,84 @@ def check_result_of_olympiad(name_of_participant):
     first_olympiad = olympiad(1)
     second_olympiad = olympiad(2)
     try:
-        print(f'Имя участника: {name_of_participant}\n'
-              f'[название_первой_олимпиады]  статус      балл_за_олимпиаду\n'
-              f'{first_olympiad["name"]:<29}'
-              f'{check_participant_status(name_of_participant, first_olympiad):<12}'
-              f'{first_olympiad["winners"][name_of_participant]}\n'
-              f'[название_второй_олимпиады]  статус      балл_за_пятую_задачу\n'
-              f'{second_olympiad["name"]:<29}'
-              f'{check_participant_status(name_of_participant, second_olympiad):<12}'
-              f'{second_olympiad["winners"][name_of_participant][4]}'
-              )
+        print(f'[{first_olympiad["name"]}]', end='  ')
+        print(f'победитель  {first_olympiad["winners"][name_of_participant]}')
     except KeyError:
-        print('xd')
+        print('призер')
+    finally:
+        print('-' * 51)
+
+    try:
+        print(f'[{second_olympiad["name"]}]', end='  ')
+        print(f'победитель {second_olympiad["winners"][name_of_participant][4]}')
+    except KeyError:
+        print('призер')
     except IndexError:
-        print('xdd')
+        print('победитель  5 задача не проверена')
+    finally:
+        print('-' * 51)
+    return ''
+
+
+def extremely_impolite_function():
+    try:
+        while True:
+            pass
+    except KeyboardInterrupt:
+        print('Тебе это не надо (ಠ_ಠ)')
+        extremely_impolite_function()
+
+
+class LizardInLemonadeMug(Exception):
+    pass
+
+
+class BarBurntDown(Exception):
+    pass
+
+
+class NegativeNumberOfMugs(Exception):
+    pass
+
+
+class TooManyNumberOfMugs(Exception):
+    pass
+
+
+def anecdote():
+    try:
+        answer = input('Добро пожаловать, что будете заказывать?\n'
+                       'Мы можем предложить Вам лимонад или ящерицу в стакане\n')
+        if answer == 'ящерицу в стакане':
+            raise LizardInLemonadeMug
+        if answer == 'где тут туалет?':
+            raise BarBurntDown
+        if answer == 'лимонад':
+            answer = input('Сколько Вам нужно кружек\n')
+            if int(answer) == 0:
+                print('Пожалуйста, вот ваши 0 кружек лимонада')
+            if int(answer) == 1:
+                print('Пожалуйста, с вас 10 тугриков')
+            if int(answer) == 2:
+                raise AssertionError
+            if int(answer) > 2:
+                raise TooManyNumberOfMugs
+            if int(answer) < 0:
+                raise NegativeNumberOfMugs
+            else:  # qwerty type number of mugs
+                raise ValueError
+    except AssertionError:
+        print('У бара сегодня кризис: не больше одной кружки в одни руки')
+    except ValueError:
+        print('Кажется Вам уже хватит на сегодня лимонада...')
+    except LizardInLemonadeMug:
+        print('Сегодня ящерицы были особенно желаемыми, поэтому они закончились')
+    except NegativeNumberOfMugs:
+        print('Такого количества кружек не может быть и в помине')
+    except TooManyNumberOfMugs:
+        print('Нам не хватит кружек для выполнения Вашего заказа')
+    except BarBurntDown:
+        print('Бар сгорел')
 
 
 if __name__ == '__main__':
